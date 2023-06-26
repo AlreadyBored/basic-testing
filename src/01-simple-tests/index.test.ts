@@ -6,7 +6,7 @@ describe('simpleCalculator tests', () => {
     // Write your test here
   });
 
-  test('should substract two numbers', () => {
+  test('should subtract two numbers', () => {
     // Write your test here
   });
 
