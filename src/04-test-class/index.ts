@@ -1,23 +1,27 @@
 import { random } from 'lodash';
 
 export class BankAccount {
-  private balance: number;
+  private _balance: number;
 
   constructor(initialBalance: number) {
-    this.balance = initialBalance;
+    this._balance = initialBalance;
+  }
+
+  public getBalance() {
+    return this._balance;
   }
 
   public deposit(amount: number): this {
-    this.balance += amount;
+    this._balance += amount;
 
     return this;
   }
 
   public withdraw(amount: number): this {
-    if (amount > this.balance) {
-      throw new InsufficientFundsError(this.balance);
+    if (amount > this._balance) {
+      throw new InsufficientFundsError(this._balance);
     }
-    this.balance -= amount;
+    this._balance -= amount;
 
     return this;
   }
@@ -35,10 +39,7 @@ export class BankAccount {
   public async fetchBalance(): Promise<number | null> {
     const balance = random(0, 100, false);
 
-    console.log('balance', balance);
-
     const requestFailed = random(0, 1, false) === 0;
-    console.log('requestFailed', random(0, 1, false));
 
     return requestFailed ? null : balance;
   }
@@ -49,7 +50,7 @@ export class BankAccount {
       throw new SynchronizationFailedError();
     }
 
-    this.balance = balance;
+    this._balance = balance;
   }
 }
 
