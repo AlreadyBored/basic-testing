@@ -10,7 +10,7 @@ describe('BankAccount', () => {
     // Write your test here
   });
 
-  test('should throw TransferFailedError error when transferring more than balance', () => {
+  test('should throw error when transferring more than balance', () => {
     // Write your test here
   });
 
