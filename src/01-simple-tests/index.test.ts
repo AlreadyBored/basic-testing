@@ -13,7 +13,7 @@ describe('simpleCalculator tests', () => {
   });
 
   test('should substract two numbers', () => {
-    expect(simpleCalculator({ ...input, action: Action.Substract })).toBe(
+    expect(simpleCalculator({ ...input, action: Action.Subtract })).toBe(
       input.a - input.b,
     );
   });
