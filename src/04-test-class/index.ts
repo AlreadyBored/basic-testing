@@ -27,10 +27,11 @@ export class BankAccount {
   }
 
   public transfer(amount: number, toAccount: BankAccount): this {
-    this.withdraw(amount);
     if (this === toAccount) {
       throw new TransferFailedError();
     }
+
+    this.withdraw(amount);
     toAccount.deposit(amount);
 
     return this;
