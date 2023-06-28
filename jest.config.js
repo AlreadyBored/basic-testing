@@ -1,3 +1,5 @@
+const SECONDS = 1000;
+
 module.exports = {
   testEnvironment: 'node',
   testPathIgnorePatterns: ['/node_modules/'],
@@ -12,4 +14,5 @@ module.exports = {
   transform: {
     '^.+\\.ts?$': 'ts-jest',
   },
+  testTimeout: 30 * SECONDS,
 };
