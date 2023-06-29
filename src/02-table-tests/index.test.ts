@@ -1,17 +1,23 @@
-// Uncomment the code below and write your tests
-/* import {  simpleCalculator, Action } from './index';
+import { simpleCalculator, Action, RawCalculatorInput } from './index';
 
 const testCases = [
-    { a: 1, b: 2, action: Action.Add, expected: 3 },
-    { a: 2, b: 2, action: Action.Add, expected: 4 },
-    { a: 3, b: 2, action: Action.Add, expected: 5 },
-    // continue cases for other actions    
-]; */
-
+  { a: 1, b: 2, action: Action.Add, expected: 3 },
+  { a: 2, b: 2, action: Action.Add, expected: 4 },
+  { a: 3, b: 2, action: Action.Add, expected: 5 },
+  { a: 6, b: 2, action: Action.Subtract, expected: 4 },
+  { a: 144, b: 12, action: Action.Subtract, expected: 132 },
+  { a: 144, b: 12, action: Action.Divide, expected: 12 },
+  { a: 6, b: 2, action: Action.Divide, expected: 3 },
+  { a: 2, b: 7, action: Action.Multiply, expected: 14 },
+  { a: 3, b: 3, action: Action.Exponentiate, expected: 27 },
+  { a: 144, b: 12, action: 'nonexist', expected: null },
+  { a: '144', b: 12, action: Action, expected: null },
+];
 describe('simpleCalculator', () => {
-  // This test case is just to run this test suite, remove it when you write your own tests
-  test('should blah-blah', () => {
-    expect(true).toBe(true);
-  });
-  // Consider to use Jest table tests API to test all cases above
+  it.each<RawCalculatorInput & { expected: number | null }>(testCases)(
+    '$a $action $b should be $expected',
+    ({ a, b, action, expected }) => {
+      expect(simpleCalculator({ a, b, action })).toBe(expected);
+    },
+  );
 });
