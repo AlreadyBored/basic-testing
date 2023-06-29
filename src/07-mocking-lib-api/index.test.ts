@@ -2,6 +2,15 @@ import axios from 'axios';
 import { throttledGetDataFromApi } from './index';
 
 jest.mock('axios');
+jest.mock('lodash', () => {
+  const originalModule = jest.requireActual<typeof import('lodash')>('lodash');
+
+  return {
+    __esModule: true,
+    ...originalModule,
+    throttle: jest.fn((fn) => fn),
+  };
+});
 const mockedAxios = axios as unknown as jest.Mocked<typeof axios>;
 
 const users = [
@@ -9,19 +18,11 @@ const users = [
   { id: 2, name: 'Andrew' },
 ];
 
-beforeAll(() => {
-  jest.useFakeTimers();
-});
-
 beforeEach(() => {
   mockedAxios.create = jest.fn(() => mockedAxios);
   mockedAxios.get.mockImplementationOnce(() =>
     Promise.resolve({ data: users }),
   );
-});
-
-afterEach(() => {
-  jest.advanceTimersByTime(5000);
 });
 
 describe('throttledGetDataFromApi', () => {
