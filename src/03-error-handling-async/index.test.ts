@@ -15,17 +15,17 @@ describe('resolveValue', () => {
 
 describe('throwError', () => {
   test('should throw error with provided message', () => {
-    expect(throwError('hehe')).toThrow('hehe');
+    expect(()=> throwError('hehe')).toThrow('hehe');
   });
 
   test('should throw error with default message if message is not provided', () => {
-    expect(throwError()).toThrow();
+    expect(()=> throwError()).toThrow();
   });
 });
 
 describe('throwCustomError', () => {
   test('should throw custom error', () => {
-    expect(throwCustomError()).toThrow(MyAwesomeError);
+    expect(() => throwCustomError()).toThrow(MyAwesomeError);
   });
 });
 
