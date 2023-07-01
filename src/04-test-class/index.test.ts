@@ -1,5 +1,4 @@
 // Uncomment the code below and write your tests
-import _ from 'lodash';
 import {
   getBankAccount,
   InsufficientFundsError,
