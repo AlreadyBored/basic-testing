@@ -14,22 +14,22 @@ describe('resolveValue', () => {
 
 describe('throwError', () => {
   test('should throw error with provided message', () => {
-    expect(throwError('Delta')).rejects.toThrow('Delta');
+    expect(() => throwError('Delta')).toThrow('Delta');
   });
 
   test('should throw error with default message if message is not provided', () => {
-    expect(throwError()).rejects.toThrow('Oops!');
+    expect(() => throwError()).toThrow('Oops!');
   });
 });
 
 describe('throwCustomError', () => {
   test('should throw custom error', () => {
-    expect(throwCustomError()).rejects.toThrow(MyAwesomeError);
+    expect(() => throwCustomError()).toThrow(MyAwesomeError);
   });
 });
 
 describe('rejectCustomError', () => {
   test('should reject custom error', async () => {
-    expect(await rejectCustomError()).rejects.toThrow(MyAwesomeError);
+    await expect(() => rejectCustomError()).rejects.toThrow(MyAwesomeError);
   });
 });
