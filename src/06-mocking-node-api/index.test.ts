@@ -1,6 +1,7 @@
 // Uncomment the code below and write your tests
 import { readFileAsynchronously, doStuffByTimeout, doStuffByInterval } from '.';
 import path from 'path';
+import fsPromises from 'fs/promises';
 
 describe('doStuffByTimeout', () => {
   beforeAll(() => {
@@ -66,7 +67,12 @@ describe('readFileAsynchronously', () => {
   });
 
   test('should return file content if file exists', async () => {
+    const mockFileData = 'test';
+    jest
+      .spyOn(fsPromises, 'readFile')
+      .mockReturnValue(Promise.resolve(mockFileData));
+
     const res = await readFileAsynchronously('./index.ts');
-    expect(typeof res).toBe('string');
+    expect(res).toBe(mockFileData);
   });
 });
