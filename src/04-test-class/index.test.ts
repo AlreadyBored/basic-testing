@@ -2,12 +2,12 @@ import {
   getBankAccount, InsufficientFundsError, TransferFailedError, SynchronizationFailedError,
 } from '.';
 
-describe('BankAccount', () =>
+describe('BankAccount', () => {
   test('should create account with initial balance', () => {
     const myBankAccount = getBankAccount(500);
     expect(myBankAccount.getBalance()).toBe(500);
   });
-
+})
 test('should throw InsufficientFundsError error when withdrawing more than balance', () => {
   const myBankAccount = getBankAccount(500);
   const insufficient = new InsufficientFundsError(500);
@@ -43,7 +43,7 @@ test('should transfer money', () => {
   const myBankAccount = getBankAccount(500);
   const mySecondBankAccount = getBankAccount(0);
   myBankAccount.transfer(500, mySecondBankAccount);
-  expect(myBankAccount.getBalance()).toBe(500);
+  expect(myBankAccount.getBalance()).toBe(0);
 });
 
 test.each([
@@ -83,5 +83,5 @@ test.each([
     await expect(myBankAccount.synchronizeBalance()).rejects.toThrowError(error);
   }
 );
-)}
+
 
