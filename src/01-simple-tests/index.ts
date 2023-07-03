@@ -23,7 +23,7 @@ export const simpleCalculator = (
 ): number | null => {
   if (isInputValid(rawInput)) {
     const { a, b, action } = rawInput;
-
+    console.log("a=",a,"b=",b,"action=",action);
     switch (action) {
       case Action.Add:
         return a + b;
@@ -53,3 +53,4 @@ const isInputValid = (
 
   return actionValid && argumentsValid;
 };
+
