@@ -98,7 +98,6 @@ describe('BankAccount', () => {
     const bankAccount = getBankAccount(balance);
     const fetchFn = jest.spyOn(bankAccount, 'fetchBalance');
     const res = await bankAccount.fetchBalance();
-    console.log('res =', res);
     if (typeof res === 'number') {
       fetchFn.mockResolvedValue(mockBalance)
       await bankAccount.synchronizeBalance();
