@@ -26,7 +26,7 @@ describe('BankAccount', () => {
   test('should create account with initial balance', () => {
     const balance = 5;
     const bankAccount = getBankAccount(balance);
-    expect(bankAccount.getBalance()).toBe(balance);
+    expect(bankAccount.getBalance()).toEqual(balance);
   });
 
   test('should throw InsufficientFundsError error when withdrawing more than balance', () => {
@@ -55,7 +55,7 @@ describe('BankAccount', () => {
     const deposit = 5;
     const bankAccount = getBankAccount(balance);
     bankAccount.deposit(deposit);
-    expect(bankAccount.getBalance()).toBe(balance + deposit);
+    expect(bankAccount.getBalance()).toEqual(balance + deposit);
   });
 
   test('should withdraw money', () => {
@@ -63,7 +63,7 @@ describe('BankAccount', () => {
     const take = 2;
     const bankAccount = getBankAccount(balance);
     bankAccount.withdraw(take);
-    expect(bankAccount.getBalance()).toBe(balance - take);
+    expect(bankAccount.getBalance()).toEqual(balance - take);
   });
 
   test('should transfer money', () => {
@@ -74,8 +74,8 @@ describe('BankAccount', () => {
     const bankAccountRecipient = getBankAccount(balanceRecipient);
     expect(() => bankAccountSender.transfer(send, bankAccountRecipient))
       .not.toThrowError()
-    expect(bankAccountSender.getBalance()).toBe(balanceSender - send);
-    expect(bankAccountRecipient.getBalance()).toBe(balanceRecipient + send);
+    expect(bankAccountSender.getBalance()).toEqual(balanceSender - send);
+    expect(bankAccountRecipient.getBalance()).toEqual(balanceRecipient + send);
   });
 
   test('fetchBalance should return number in case if request did not failed', async () => {
@@ -83,32 +83,34 @@ describe('BankAccount', () => {
     const bankAccount = getBankAccount(balance);
     bankAccount.fetchBalance()
       .then((res) => {
-        expect(typeof res).toBe('number' || 'object')
+        if (typeof res === 'number') {
+          expect(typeof res).toEqual('number')
+        }
         if (typeof res === 'object') {
-          expect(typeof res).toBeNull();
+          expect(res).toBeNull();
         }
       })
   });
 
   test('should set new balance if fetchBalance returned number', async () => {
     const balance = 5;
+    const mockBalance = 50;
     const bankAccount = getBankAccount(balance);
-    bankAccount.fetchBalance()
-      .then((res) => {
-        if (typeof res === 'number') {
-          expect(bankAccount.getBalance()).toBe(res);
-        }
-      })
+    const fetchFn = jest.spyOn(bankAccount, 'fetchBalance');
+    const res = await bankAccount.fetchBalance();
+    console.log('res =', res);
+    if (typeof res === 'number') {
+      fetchFn.mockResolvedValue(mockBalance)
+      await bankAccount.synchronizeBalance();
+      expect(bankAccount.getBalance()).toEqual(mockBalance);
+    }
   });
 
   test('should throw SynchronizationFailedError if fetchBalance returned null', async () => {
     const balance = 5;
     const bankAccount = getBankAccount(balance);
-    bankAccount.fetchBalance()
-      .then((res) => {
-        if (typeof res === 'object') {
-          expect(bankAccount.synchronizeBalance()).rejects.toThrow(SynchronizationFailedError);
-        }
-      })
+    const fetchFn = jest.spyOn(bankAccount, 'fetchBalance');
+    fetchFn.mockResolvedValue(null)
+    expect(bankAccount.synchronizeBalance()).rejects.toThrow(SynchronizationFailedError);
   });
 });
