@@ -1,5 +1,10 @@
 // Uncomment the code below and write your tests
-import { InsufficientFundsError, SynchronizationFailedError, TransferFailedError, getBankAccount } from '.';
+import {
+  InsufficientFundsError,
+  SynchronizationFailedError,
+  TransferFailedError,
+  getBankAccount,
+} from '.';
 
 describe('BankAccount', () => {
   test('should create account with initial balance', () => {
