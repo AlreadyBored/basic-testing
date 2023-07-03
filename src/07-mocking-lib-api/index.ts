@@ -3,7 +3,7 @@ import { throttle } from 'lodash';
 
 export const THROTTLE_TIME = 5000;
 
-const getDataFromApi = async (relativePath: string) => {
+export const getDataFromApi = async (relativePath: string) => {
   const axiosClient = axios.create({
     baseURL: 'https://jsonplaceholder.typicode.com',
   });
