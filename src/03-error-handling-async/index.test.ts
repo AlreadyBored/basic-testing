@@ -32,6 +32,6 @@ describe('throwCustomError', () => {
 
 describe('rejectCustomError', () => {
   test('should reject custom error', async () => {
-    expect(rejectCustomError()).rejects.toThrow(MyAwesomeError);
+    await expect(rejectCustomError()).rejects.toThrow(MyAwesomeError);
   });
 });
