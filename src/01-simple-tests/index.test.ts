@@ -1,10 +1,12 @@
 import { simpleCalculator, Action } from './index';
 
 describe('simpleCalculator tests', () => {
-  let rawInput: { a: number; b: number; action?: Action };
-  const a = 10;
-  const b = 1;
-  beforeAll(() => (rawInput = { a, b }));
+  const randInt = () => Math.floor(Math.random() * 100);
+
+  const a = randInt();
+  const b = randInt();
+
+  const rawInput: { a: number; b: number; action?: Action } = { a, b };
 
   test('should add two numbers', () => {
     expect(simpleCalculator({ ...rawInput, action: Action.Add })).toBe(a + b);
