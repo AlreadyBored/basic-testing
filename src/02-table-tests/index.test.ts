@@ -16,13 +16,16 @@ const testCases = [
   { a: -3, b: 1, action: Action.Divide, expected: -3 },
   { a: 4, b: 2, action: Action.Divide, expected: 2 },
   { a: 42, b: 7, action: Action.Divide, expected: 6 },
-  { a: '42', b: 7, action: Action.Divide, expected: null },
+  { a: '42 string', b: 7, action: Action.Divide, expected: null },
   { a: 42, b: 7, action: 'plus', expected: null },
 ];
 
 describe('simpleCalculator', () => {
-  it.each(testCases)('should add two numbers', ({ a, b, action, expected }) => {
-    const result = simpleCalculator({ a, b, action });
-    expect(result).toBe(expected);
-  });
+  it.each(testCases)(
+    'should $a $action $b return $expected',
+    ({ a, b, action, expected }) => {
+      const result = simpleCalculator({ a, b, action });
+      expect(result).toBe(expected);
+    },
+  );
 });
