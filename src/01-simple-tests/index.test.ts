@@ -25,9 +25,9 @@ describe('simpleCalculator tests', () => {
   });
 
   test('should divide two numbers', () => {
-    expect(simpleCalculator({ ...rawInput, action: Action.Divide })).toBe(
-      a / b,
-    );
+    expect(
+      simpleCalculator({ ...rawInput, action: Action.Divide }),
+    ).toBeCloseTo(a / b);
   });
 
   test('should exponentiate two numbers', () => {
