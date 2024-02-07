@@ -1,17 +1,43 @@
 // Uncomment the code below and write your tests
-/* import {  simpleCalculator, Action } from './index';
+import { Action, simpleCalculator } from './index';
 
-const testCases = [
-    { a: 1, b: 2, action: Action.Add, expected: 3 },
-    { a: 2, b: 2, action: Action.Add, expected: 4 },
-    { a: 3, b: 2, action: Action.Add, expected: 5 },
-    // continue cases for other actions    
-]; */
+const validInputCases = [
+  { a: 1, b: 2, action: Action.Add, expected: 3 },
+  { a: 2, b: 2, action: Action.Add, expected: 4 },
+  { a: 3, b: -2, action: Action.Add, expected: 1 },
+  { a: 3, b: -7, action: Action.Add, expected: -4 },
+  { a: 1, b: 2, action: Action.Subtract, expected: -1 },
+  { a: 2, b: 2, action: Action.Subtract, expected: 0 },
+  { a: 3, b: -2, action: Action.Subtract, expected: 5 },
+  { a: 3, b: -7, action: Action.Subtract, expected: 10 },
+  { a: 1, b: 2, action: Action.Multiply, expected: 2 },
+  { a: 2, b: 2, action: Action.Multiply, expected: 4 },
+  { a: 3, b: -2, action: Action.Multiply, expected: -6 },
+  { a: 3, b: -7, action: Action.Multiply, expected: -21 },
+  { a: 1, b: 2, action: Action.Divide, expected: 0.5 },
+  { a: 2, b: 2, action: Action.Divide, expected: 1 },
+  { a: 3, b: -2, action: Action.Divide, expected: -1.5 },
+  { a: 3, b: -7, action: Action.Divide, expected: -0.429 },
+  { a: 1, b: 2, action: Action.Exponentiate, expected: 1 },
+  { a: 2, b: 2, action: Action.Exponentiate, expected: 4 },
+  { a: 3, b: -2, action: Action.Exponentiate, expected: 0.111 },
+  { a: 1, b: 2, action: 'add', expected: null },
+  { a: 1, b: 2, action: undefined, expected: null },
+  { a: 1, b: '2', action: Action.Add, expected: null },
+  { a: '1', b: 2, action: Action.Add, expected: null },
+  { a: 'one', b: 'two', action: Action.Add, expected: null },
+  { a: undefined, b: undefined, action: Action.Add, expected: null },
+];
 
 describe('simpleCalculator', () => {
-  // This test case is just to run this test suite, remove it when you write your own tests
-  test('should blah-blah', () => {
-    expect(true).toBe(true);
-  });
-  // Consider to use Jest table tests API to test all cases above
+  test.each(validInputCases)(
+    '$a $action $b -> $expected',
+    ({ expected, ...input }) => {
+      if (expected === null) {
+        expect(simpleCalculator(input)).toBeNull();
+      } else {
+        expect(simpleCalculator(input)).toBeCloseTo(expected);
+      }
+    },
+  );
 });
