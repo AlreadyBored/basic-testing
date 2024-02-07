@@ -50,6 +50,6 @@ const isInputValid = (
 
   const actionValid = Object.values(Action).includes(action as Action);
   const argumentsValid = typeof a === 'number' && typeof b === 'number';
-
+''
   return actionValid && argumentsValid;
 };
