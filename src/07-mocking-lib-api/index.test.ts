@@ -5,18 +5,15 @@ jest.mock('lodash', () => ({
   throttle: jest.fn().mockImplementation((fn) => fn),
 }));
 
-// jest.mock('axios', () => ({
-//   // ...jest.requireActual<typeof import('axios')>('axios'),
-//   create: () => axios,
-//   get: () => Promise.resolve({ data: 'data' }),
-// }));
-
 describe('throttledGetDataFromApi', () => {
   const baseURL = 'https://jsonplaceholder.typicode.com';
   const endPoint = 'albums/1';
 
   test('should create instance with provided base url', async () => {
     const createSpy = jest.spyOn(axios, 'create');
+    jest
+      .spyOn(axios.Axios.prototype, 'get')
+      .mockResolvedValueOnce({ data: 'data' }); // mock axios.get because we don't need it in this test
 
     await throttledGetDataFromApi(endPoint);
 
@@ -25,9 +22,9 @@ describe('throttledGetDataFromApi', () => {
   });
 
   test('should perform request to correct provided url', async () => {
-    // const instance = axios.create({ baseURL });
-    // jest.spyOn(axios, 'create').mockImplementation(() => instance);
-    const getSpy = jest.spyOn(axios.Axios.prototype, 'get');
+    const getSpy = jest
+      .spyOn(axios.Axios.prototype, 'get')
+      .mockResolvedValueOnce({ data: 'data' }); // mock axios.get because we don't need it in this test
 
     await throttledGetDataFromApi(endPoint);
 
@@ -36,6 +33,6 @@ describe('throttledGetDataFromApi', () => {
   });
 
   test('should return response data', async () => {
-    expect(await throttledGetDataFromApi(endPoint)).toBeDefined();
+    expect(await throttledGetDataFromApi(endPoint)).toBeDefined(); // get real api response
   });
 });
