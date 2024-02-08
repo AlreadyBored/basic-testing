@@ -1,32 +1,44 @@
-// Uncomment the code below and write your tests
-// import { simpleCalculator, Action } from './index';
+import { simpleCalculator, Action } from './index';
 
 describe('simpleCalculator tests', () => {
   test('should add two numbers', () => {
-    // Write your test here
+    checkMathAction(Action.Add, (a, b) => a + b);
   });
 
   test('should subtract two numbers', () => {
-    // Write your test here
+    checkMathAction(Action.Subtract, (a, b) => a - b);
   });
 
   test('should multiply two numbers', () => {
-    // Write your test here
+    checkMathAction(Action.Multiply, (a, b) => a * b);
   });
 
   test('should divide two numbers', () => {
-    // Write your test here
+    checkMathAction(Action.Divide, (a, b) => a / b);
   });
 
   test('should exponentiate two numbers', () => {
-    // Write your test here
+    checkMathAction(Action.Exponentiate, (a, b) => a ** b);
   });
 
   test('should return null for invalid action', () => {
-    // Write your test here
+    checkCalculatorResult({ a: 1, b: 2, action: 'fake-action' }, null);
   });
 
   test('should return null for invalid arguments', () => {
-    // Write your test here
+    checkCalculatorResult({ a: '1', b: '2', action: Action.Add }, null);
   });
 });
+
+function checkMathAction(action: Action, cb: (a: number, b: number) => number) {
+  const a = Math.random();
+  const b = Math.random();
+  checkCalculatorResult({ a, b, action }, cb(a, b));
+}
+
+function checkCalculatorResult(
+  args: { a: unknown; b: unknown; action: string },
+  expected: number | null,
+) {
+  expect(simpleCalculator(args)).toBe(expected);
+}
