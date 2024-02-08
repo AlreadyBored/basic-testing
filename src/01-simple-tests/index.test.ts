@@ -1,4 +1,3 @@
-// Uncomment the code below and write your tests
 import { simpleCalculator, Action } from './index';
 
 describe('simpleCalculator tests', () => {
@@ -19,21 +18,18 @@ describe('simpleCalculator tests', () => {
   });
 
   test('should exponentiate two numbers', () => {
-    // Write your test here
     expect(simpleCalculator({ a: 4, b: 3, action: Action.Exponentiate })).toBe(
       64,
     );
   });
 
   test('should return null for invalid action', () => {
-    // Write your test here
     expect(
       simpleCalculator({ a: 3, b: 4, action: 'invalidAction' }),
     ).toBeNull();
   });
 
   test('should return null for invalid arguments', () => {
-    // Write your test here
     expect(
       simpleCalculator({ a: 'string', b: {}, action: Action.Add }),
     ).toBeNull();
