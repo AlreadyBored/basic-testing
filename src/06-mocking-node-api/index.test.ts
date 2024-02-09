@@ -106,4 +106,8 @@ describe('readFileAsynchronously', () => {
 
     expect(result).toBe('text text');
   });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 });
