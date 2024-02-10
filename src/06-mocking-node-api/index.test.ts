@@ -11,15 +11,13 @@ jest.mock('path', () => ({
 
 jest.mock('fs', () => ({
   existsSync: jest.fn(),
-  // readFile: jest.fn(),
-}));
-
-jest.mock('fs/promises', () => ({
   readFile: jest.fn(),
 }));
 
-// jest.mock('fs');
-// jest.mock('fs/promises');
+// jest.mock('path', () => ({
+//   ...jest.requireActual('path'),
+//   join: jest.fn(),
+// }));
 
 const mockExistsSync = existsSync as jest.MockedFunction<typeof existsSync>;
 const mockReadFile = readFile as jest.MockedFunction<typeof readFile>;
