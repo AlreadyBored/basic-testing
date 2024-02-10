@@ -19,6 +19,9 @@ describe('throttledGetDataFromApi', () => {
     mockedAxios.create.mockReturnValue(mockedAxios);
     mockedAxios.get.mockResolvedValue(data);
   });
+  afterAll(() => {
+    jest.resetAllMocks();
+  });
   test('should create instance with provided base url', async () => {
     const expectedBaseUrl = 'https://jsonplaceholder.typicode.com';
 
