@@ -20,7 +20,7 @@ const testCases: Array<{
 describe('simpleCalculator', () => {
   // This test case is just to run this test suite, remove it when you write your own tests
   test.each(testCases)(
-    'should blah-blah',
+    'should return "$value" for "$a $action $b"',
     ({ a, b, action, matcher, value }) => {
       expect(simpleCalculator({ a, b, action }))[matcher](value);
     },

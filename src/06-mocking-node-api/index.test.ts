@@ -1,12 +1,8 @@
 // Uncomment the code below and write your tests
 import { readFileAsynchronously, doStuffByTimeout, doStuffByInterval } from '.';
-import * as path from 'path';
-import * as fs from 'fs';
-import * as fsPromises from 'fs/promises';
-
-jest.mock<typeof import('path')>('path');
-jest.mock<typeof import('fs')>('fs');
-jest.mock<typeof import('fs/promises')>('fs/promises');
+import path from 'path';
+import fs from 'fs';
+import fsPromises from 'fs/promises';
 
 const timeout = 1000;
 
@@ -25,6 +21,7 @@ describe('doStuffByTimeout', () => {
 
     doStuffByTimeout(callback, timeout);
     expect(setTimeout).toHaveBeenCalledWith(callback, timeout);
+    setTimeout.mockRestore();
   });
 
   test('should call callback only after timeout', () => {
@@ -51,6 +48,7 @@ describe('doStuffByInterval', () => {
 
     doStuffByInterval(callback, timeout);
     expect(setInterval).toHaveBeenCalledWith(callback, timeout);
+    setInterval.mockRestore();
   });
 
   test('should call callback multiple times after multiple intervals', () => {
@@ -67,9 +65,14 @@ describe('doStuffByInterval', () => {
 describe('readFileAsynchronously', () => {
   test('should call join with pathToFile', async () => {
     const path_to_file = 'test/path';
+    const mockPathJoin = jest.spyOn(path, 'join');
 
     readFileAsynchronously(path_to_file).then(() => {
-      expect(path.join).toHaveBeenCalledWith(expect.anything(), path_to_file);
+      expect(mockPathJoin).toHaveBeenCalledWith(
+        expect.anything(),
+        path_to_file,
+      );
+      mockPathJoin.mockRestore();
     });
   });
 
@@ -79,6 +82,7 @@ describe('readFileAsynchronously', () => {
 
     mockExistsSync.mockReturnValueOnce(false);
     expect(readFileAsynchronously(path_to_file)).resolves.toBeNull();
+    mockExistsSync.mockRestore();
   });
 
   test('should return file content if file exists', async () => {
@@ -97,5 +101,8 @@ describe('readFileAsynchronously', () => {
     expect(readFileAsynchronously(path_to_file)).resolves.toEqual(
       readResult.toString(),
     );
+
+    mockExistsSync.mockRestore();
+    mockReadFile.mockRestore();
   });
 });
