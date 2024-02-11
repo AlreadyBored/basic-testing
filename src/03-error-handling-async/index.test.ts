@@ -4,6 +4,7 @@ import {
   throwCustomError,
   resolveValue,
   rejectCustomError,
+  MyAwesomeError,
 } from './index';
 
 describe('resolveValue', () => {
@@ -26,20 +27,14 @@ describe('throwError', () => {
 
 describe('throwCustomError', () => {
   test('should throw custom error', () => {
-    expect(() => throwCustomError).toThrowError(
-      'This is my awesome custom error!',
-    );
+    expect(() => throwCustomError()).toThrow(new MyAwesomeError());
   });
 });
 
 describe('rejectCustomError', () => {
   test('should reject custom error', async () => {
-    try {
-      console.log('try');
-      await rejectCustomError();
-    } catch (error) {
-      console.log('error', error);
-      expect(typeof error).toMatch('This is my awesome custom error!');
-    }
+    await expect(rejectCustomError()).rejects.toThrowError(
+      'This is my awesome custom error!',
+    );
   });
 });
