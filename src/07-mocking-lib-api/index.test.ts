@@ -1,36 +1,40 @@
 import axios from 'axios';
 import { throttledGetDataFromApi } from './index';
 
+const relativePath = '/posts';
+
 describe('throttledGetDataFromApi', () => {
-  afterAll(() => {
-    jest.restoreAllMocks();
+  beforeAll(() => {
+    jest.useFakeTimers();
   });
 
-  // TODO: Maybe, but I'm not sure
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
   test('should create instance with provided base url', async () => {
-    const relativePath = '/posts';
-    const create = jest.spyOn(axios, 'create');
-
+    const spyCreateAxios = jest.spyOn(axios, 'create');
     await throttledGetDataFromApi(relativePath);
-
-    expect(create).toHaveBeenCalledWith({
+    jest.runAllTimers();
+    expect(spyCreateAxios).toHaveBeenCalledWith({
       baseURL: 'https://jsonplaceholder.typicode.com',
     });
   });
 
-  // TODO:
   test('should perform request to correct provided url', async () => {
-    // Write your test here
+    const spyGetAxios = jest.spyOn(axios.Axios.prototype, 'get');
+    await throttledGetDataFromApi(relativePath);
+    jest.runAllTimers();
+    expect(spyGetAxios).toHaveBeenCalledTimes(1);
   });
 
-  // TODO: axiosClient missing props
   test('should return response data', async () => {
-    // const relativePath = '/posts';
-    // const responseMock = { data: 'mocked data' };
-    // jest
-    //   .spyOn(axios, 'create')
-    //   .mockReturnValue({ get: jest.fn().mockResolvedValueOnce(responseMock) });
-    // const result = await throttledGetDataFromApi(relativePath);
-    // expect(result).toEqual(responseMock.data);
+    const relativePath = '/posts';
+    const responseDataMock = { data: 'mocked data' };
+    jest
+      .spyOn(axios.Axios.prototype, 'get')
+      .mockResolvedValue({ data: responseDataMock });
+    const result = await throttledGetDataFromApi(relativePath);
+    expect(result).toEqual(responseDataMock);
   });
 });

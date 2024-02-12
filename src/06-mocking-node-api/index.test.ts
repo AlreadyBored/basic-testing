@@ -1,3 +1,4 @@
+import fs from 'fs';
 import { readFileAsynchronously, doStuffByTimeout, doStuffByInterval } from '.';
 
 describe('doStuffByTimeout', () => {
@@ -9,12 +10,11 @@ describe('doStuffByTimeout', () => {
     jest.useRealTimers();
   });
 
-  // TODO: I'm not sure
   test('should set timeout with provided callback and timeout', () => {
     const callback = jest.fn();
+    jest.spyOn(global, 'setTimeout');
     doStuffByTimeout(callback, 1000);
-    jest.advanceTimersByTime(1000);
-    expect(callback).toHaveBeenCalled();
+    expect(setTimeout).toHaveBeenCalledWith(callback, 1000);
   });
 
   test('should call callback only after timeout', () => {
@@ -35,12 +35,11 @@ describe('doStuffByInterval', () => {
     jest.useRealTimers();
   });
 
-  // TODO: I'm not sure
   test('should set interval with provided callback and timeout', () => {
     const callback = jest.fn();
+    const spySetInterval = jest.spyOn(global, 'setInterval');
     doStuffByInterval(callback, 1000);
-    jest.advanceTimersByTime(1000);
-    expect(callback).toHaveBeenCalled();
+    expect(spySetInterval).toHaveBeenCalledWith(callback, 1000);
   });
 
   test('should call callback multiple times after multiple intervals', () => {
@@ -61,19 +60,15 @@ describe('readFileAsynchronously', () => {
     expect(spyJoin).toHaveBeenCalledWith(expect.any(String), 'somePath');
   });
 
-  // TODO: I think it works correctly, but make sure
   test('should return null if file does not exist', async () => {
     jest.spyOn(jest.requireActual('fs'), 'existsSync').mockReturnValue(false);
     const fileContent = await readFileAsynchronously('nonexistentFile');
     expect(fileContent).toBe(null);
   });
 
-  // TODO: I think it works correctly, but make sure
   test('should return file content if file exists', async () => {
-    jest.spyOn(jest.requireActual('fs'), 'existsSync').mockReturnValue(true);
-    jest
-      .spyOn(jest.requireActual('fs/promises'), 'readFile')
-      .mockReturnValue('data');
+    jest.spyOn(fs, 'existsSync').mockReturnValue(true);
+    jest.spyOn(fs.promises, 'readFile').mockResolvedValue('data');
     const fileContent = await readFileAsynchronously('existingFile');
     expect(fileContent).toBe('data');
   });

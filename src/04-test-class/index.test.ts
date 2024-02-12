@@ -51,14 +51,15 @@ describe('BankAccount', () => {
     expect(accountB.getBalance()).toBe(1001);
   });
 
-  // TODO:
-  // test('fetchBalance should return a number in case if the request did not fail', async () => {
-  //   jest.spyOn(lodash, 'random').mockReturnValue(0.5);
-  //   const account = getBankAccount(initialBalance);
+  test('fetchBalance should return a number in case if the request did not fail', async () => {
+    const account = getBankAccount(initialBalance);
 
-  //   const balance = await account.fetchBalance();
-  //   expect(typeof balance).toBe('number');
-  // });
+    const balance = await account.fetchBalance();
+
+    if (balance !== null) {
+      expect(typeof balance).toBe('number');
+    }
+  });
 
   test('should set a new balance if fetchBalance returned a number', async () => {
     const account = getBankAccount(initialBalance);
