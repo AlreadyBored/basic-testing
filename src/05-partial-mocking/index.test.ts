@@ -4,7 +4,7 @@ jest.mock('./index', () => {
   const originalModule =
     jest.requireActual<typeof import('./index')>('./index');
   return {
-    __esModules: true,
+    __esModule: true,
     ...originalModule,
     mockOne: jest.fn(),
     mockTwo: jest.fn(),

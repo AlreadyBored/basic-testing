@@ -17,14 +17,14 @@ describe('doStuffByTimeout', () => {
   });
 
   test('should set timeout with provided callback and timeout', () => {
-    const callback = jest.fn(() => console.log('I am mock function')); // mock function
+    const callback = jest.fn(/*() => console.log('I am mock function')*/); // mock function
     const timeout = 100;
     doStuffByTimeout(callback, timeout);
     expect(setTimeout).toBeCalledWith(callback, timeout);
   });
 
   test('should call callback only after timeout', () => {
-    const callback = jest.fn(() => console.log('I am mock function')); // mock function
+    const callback = jest.fn(/*() =>  console.log('I am mock function')*/); // mock function
     const timeout = 100;
 
     doStuffByTimeout(callback, timeout);
@@ -49,14 +49,14 @@ describe('doStuffByInterval', () => {
   });
 
   test('should set interval with provided callback and timeout', () => {
-    const callback = jest.fn(() => console.log('I am mock function')); // mock function
+    const callback = jest.fn(/*() => console.log('I am mock function')*/); // mock function
     const timeout = 100;
     doStuffByInterval(callback, timeout);
     expect(setInterval).toBeCalledWith(callback, timeout);
   });
 
   test('should call callback multiple times after multiple intervals', () => {
-    const callback = jest.fn(() => console.log('I am mock function')); // mock function
+    const callback = jest.fn(/*() => console.log('I am mock function')*/); // mock function
     const timeout = 100;
     const repeat = 5;
     doStuffByInterval(callback, timeout);
