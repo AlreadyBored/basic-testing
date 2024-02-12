@@ -2,38 +2,38 @@ import axios from 'axios';
 import { throttledGetDataFromApi } from './index';
 
 jest.mock('axios');
+jest.mock('lodash', () => {
+  const mLodash = jest.requireActual('lodash');
+  return {
+    ...mLodash,
+    throttle: jest.fn((f) => f),
+  };
+});
 
 describe('throttledGetDataFromApi', () => {
+  const mock = axios as jest.Mocked<typeof axios>;
+
+  beforeEach(() => {
+    mock.create = jest.fn(() => mock);
+    mock.get.mockImplementationOnce(() =>
+      Promise.resolve({ data: '/test.txt' }),
+    );
+  });
+
   test('should create instance with provided base url', async () => {
-    const instance = axios.create();
-    const mockBaseUrl = 'http://test.com';
-    instance.defaults.baseURL = mockBaseUrl;
-
-    await throttledGetDataFromApi('/test');
-
-    expect(axios.create).toHaveBeenCalled();
-    expect(instance.defaults.baseURL).toBe(mockBaseUrl);
+    await throttledGetDataFromApi('/test.txt');
+    expect(mock.create).toHaveBeenCalledWith({
+      baseURL: 'https://jsonplaceholder.typicode.com',
+    });
   });
 
   test('should perform request to correct provided url', async () => {
-    const instance = axios.create();
-    const mockGet = (instance.get = jest
-      .fn()
-      .mockResolvedValue({ data: 'test data' }));
-    const relativePath = '/posts/1';
-
-    await throttledGetDataFromApi(relativePath);
-
-    expect(mockGet).toHaveBeenCalledWith(relativePath);
+    await throttledGetDataFromApi('/test.txt');
+    expect(mock.get).toHaveBeenCalledWith('/test.txt');
   });
 
   test('should return response data', async () => {
-    const instance = axios.create();
-    const mockData = 'test data';
-    instance.get = jest.fn().mockResolvedValue({ data: mockData });
-
-    const data = await throttledGetDataFromApi('/test');
-
-    expect(data).toBe(mockData);
+    mock.get.mockResolvedValueOnce('/test.txt');
+    expect(await throttledGetDataFromApi('/test.txt')).toEqual('/test.txt');
   });
 });
