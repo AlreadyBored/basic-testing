@@ -2,8 +2,8 @@ import { simpleCalculator, Action } from './index';
 
 describe('simpleCalculator tests', () => {
   test('should add two numbers', () => {
-    const sum = simpleCalculator({ a: 2, b: 3, action: Action.Add });
-    expect(sum).toEqual(5);
+    const sum = simpleCalculator({ a: 1, b: 2, action: Action.Add });
+    expect(sum).toEqual(3);
   });
 
   test('should subtract two numbers', () => {
