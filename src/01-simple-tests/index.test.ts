@@ -28,9 +28,12 @@ describe('simpleCalculator tests', () => {
 
   test('should return null for invalid arguments', () => {
     expect(simpleCalculator( { a: 'A', b: 'B', action: 'Sideli na trube' })).toBeNull(); // are error mesages with toBeNull() really nicer? 
+    expect(simpleCalculator( { a: 'A', b: 2, action: Action.Divide })).toBeNull();
+    expect(simpleCalculator( { a: 2, b: 'B', action: Action.Multiply })).toBeNull();
+
   });
-  
-  test('should return null for invalid arguments', () => {
-    expect(simpleCalculator( { a: 2, b: 2, action: Action.Add })).toBeNull(); // are error mesages with toBeNull() really nicer? 
-  });
+
+  // test('should return null for invalid arguments', () => {
+  //   expect(simpleCalculator( { a: 2, b: 2, action: Action.Add })).toBeNull(); // are error mesages with toBeNull() really nicer? 
+  // });
 });
