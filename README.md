@@ -30,6 +30,7 @@ $ npm run test:verbose
 #### Notes
 1. We recommend you to use Node.js of version 20.x.x LTS. If you use any of features, that does not supported by Node.js 20, there may be problems with task submit.
 2. Please, be sure that each of your tests is limited to 30 sec.
+3. Please, be sure you don't have any linter/TS compiler errors.
 
 ---
 
