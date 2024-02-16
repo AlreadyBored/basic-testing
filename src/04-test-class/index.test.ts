@@ -1,11 +1,17 @@
 import {
   InsufficientFundsError,
-  // SynchronizationFailedError,
+  SynchronizationFailedError,
   TransferFailedError,
   getBankAccount,
 } from './index';
 
+import lodash from 'lodash';
+
 describe('BankAccount', () => {
+  afterAll((): void => {
+    jest.unmock('lodash');
+  });
+
   test('should create account with initial balance', () => {
     const account = getBankAccount(1000);
     expect(account.getBalance()).toBe(1000);
@@ -50,33 +56,23 @@ describe('BankAccount', () => {
   });
 
   test('fetchBalance should return number in case if request did not failed', async () => {
+    lodash.random = jest.fn(() => 30);
     const account = getBankAccount(1000);
-    const operation = new Promise((res) => {
-      let balance = null;
-      while (Object.is(balance, null)) {
-        balance = account.fetchBalance();
-      }
-      res(balance);
-    });
-    expect(operation).resolves.not.toBe(null);
+    const value = await account.fetchBalance();
+    expect(typeof value).toBe('number');
   });
 
   test('should set new balance if fetchBalance returned number', async () => {
-    // const account = getBankAccount(1000);
-    // expect(account.getBalance()).toBe(1000);
-    // // random.mockImplementation(() => 30);
-    // jest.spyOn(account, 'fetchBalance').mock
-    // await account.fetchBalance();
-    // expect(account.getBalance()).toBe(30);
+    lodash.random = jest.fn(() => 30);
+    const account = getBankAccount(1000);
+    await account.synchronizeBalance();
+    expect(account.getBalance()).toBe(30);
   });
 
   test('should throw SynchronizationFailedError if fetchBalance returned null', async () => {
-    // const account = getBankAccount(1000);
-    // const operation = () => account.synchronizeBalance();
-    // try {
-    //   operation();
-    // } catch {
-    //   expect(operation).rejects.toThrow(SynchronizationFailedError);
-    // }
+    lodash.random = jest.fn(() => 0);
+    const account = getBankAccount(1000);
+    const synch = account.synchronizeBalance();
+    expect(synch).rejects.toThrow(SynchronizationFailedError);
   });
 });
