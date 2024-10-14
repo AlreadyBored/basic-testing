@@ -1,6 +1,12 @@
 // Uncomment the code below and write your tests
 import lodash from 'lodash';
-import { BankAccount, InsufficientFundsError, SynchronizationFailedError, TransferFailedError, getBankAccount } from '.';
+import {
+  BankAccount,
+  InsufficientFundsError,
+  SynchronizationFailedError,
+  TransferFailedError,
+  getBankAccount,
+} from '.';
 
 describe('BankAccount', () => {
   const initialBalance = 1000;
@@ -8,7 +14,7 @@ describe('BankAccount', () => {
   let secondAcc: BankAccount;
   let operationNum: number;
 
-  beforeEach(() => firstAcc = getBankAccount(initialBalance));
+  beforeEach(() => (firstAcc = getBankAccount(initialBalance)));
   afterEach(() => jest.clearAllMocks());
 
   test('should create account with initial balance', () => {
@@ -20,7 +26,9 @@ describe('BankAccount', () => {
     // Write your test here
     operationNum = initialBalance * 3;
 
-    expect(() => firstAcc.withdraw(operationNum)).toThrowError(InsufficientFundsError);
+    expect(() => firstAcc.withdraw(operationNum)).toThrowError(
+      InsufficientFundsError,
+    );
   });
 
   test('should throw error when transferring more than balance', () => {
@@ -28,14 +36,18 @@ describe('BankAccount', () => {
     secondAcc = getBankAccount(initialBalance);
     operationNum = initialBalance * 3;
 
-    expect(() => firstAcc.transfer(operationNum, secondAcc)).toThrowError(InsufficientFundsError);
+    expect(() => firstAcc.transfer(operationNum, secondAcc)).toThrowError(
+      InsufficientFundsError,
+    );
   });
 
   test('should throw error when transferring to the same account', () => {
     // Write your test here
     operationNum = initialBalance * 0.2;
 
-    expect(() => firstAcc.transfer(operationNum, firstAcc)).toThrowError(TransferFailedError);
+    expect(() => firstAcc.transfer(operationNum, firstAcc)).toThrowError(
+      TransferFailedError,
+    );
   });
 
   test('should deposit money', () => {
@@ -101,6 +113,8 @@ describe('BankAccount', () => {
     const spyFetchBalance = jest.spyOn(firstAcc, 'fetchBalance');
     spyFetchBalance.mockResolvedValueOnce(null);
 
-    await expect(firstAcc.synchronizeBalance()).rejects.toThrowError(SynchronizationFailedError);
+    await expect(firstAcc.synchronizeBalance()).rejects.toThrowError(
+      SynchronizationFailedError,
+    );
   });
 });
