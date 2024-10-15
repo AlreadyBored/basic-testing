@@ -13,7 +13,7 @@ const testCases = [
 ];
 
 describe(simpleCalculator.name, () => {
-  it.each(testCases)(
+  test.each(testCases)(
     'should correctly calculate $a $action $b to be $expected',
     ({ a, b, action, expected }) => {
       expect(simpleCalculator({ a, b, action })).toBe(expected);
