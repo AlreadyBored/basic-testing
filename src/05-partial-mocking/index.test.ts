@@ -14,7 +14,6 @@ jest.mock('./index', () => {
 });
 
 describe('partial mocking', () => {
-
   afterAll(() => {
     jest.unmock('./index');
   });
@@ -30,7 +29,7 @@ describe('partial mocking', () => {
     mockThree();
     expect(consoleSpy).not.toBeCalled();
 
-    consoleSpy.mockRestore()
+    consoleSpy.mockRestore();
   });
 
   test('unmockedFunction should log into console', () => {
@@ -39,6 +38,6 @@ describe('partial mocking', () => {
     unmockedFunction();
     expect(consoleSpy).toBeCalledWith('I am not mocked');
 
-    consoleSpy.mockRestore()
+    consoleSpy.mockRestore();
   });
 });
