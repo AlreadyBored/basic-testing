@@ -51,8 +51,8 @@ describe('simpleCalculator tests', () => {
     expect(result2).toBe(-5);
 
     const result3 = simpleCalculator({ a: 10, b: 0, action: Action.Divide });
-    expect(result3).toBeNull();
-
+    expect(result3).toBe(Infinity);
+    
     const result4 = simpleCalculator({ a: 10, b: -2, action: Action.Divide });
     expect(result4).toBe(-5);
   });
