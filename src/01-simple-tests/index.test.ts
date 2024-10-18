@@ -52,22 +52,38 @@ describe('simpleCalculator tests', () => {
 
     const result3 = simpleCalculator({ a: 10, b: 0, action: Action.Divide });
     expect(result3).toBe(Infinity);
-    
+
     const result4 = simpleCalculator({ a: 10, b: -2, action: Action.Divide });
     expect(result4).toBe(-5);
   });
 
   test('should exponentiate two numbers', () => {
-    const result = simpleCalculator({ a: 5, b: 3, action: Action.Exponentiate });
+    const result = simpleCalculator({
+      a: 5,
+      b: 3,
+      action: Action.Exponentiate,
+    });
     expect(result).toBe(125);
 
-    const result2 = simpleCalculator({ a: -5, b: 3, action: Action.Exponentiate });
+    const result2 = simpleCalculator({
+      a: -5,
+      b: 3,
+      action: Action.Exponentiate,
+    });
     expect(result2).toBe(-125);
 
-    const result3 = simpleCalculator({ a: 5, b: -3, action: Action.Exponentiate });
+    const result3 = simpleCalculator({
+      a: 5,
+      b: -3,
+      action: Action.Exponentiate,
+    });
     expect(result3).toBe(0.008);
 
-    const result4 = simpleCalculator({ a: 5, b: 0, action: Action.Exponentiate });
+    const result4 = simpleCalculator({
+      a: 5,
+      b: 0,
+      action: Action.Exponentiate,
+    });
     expect(result4).toBe(1);
   });
 

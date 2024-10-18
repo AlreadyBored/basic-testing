@@ -64,7 +64,8 @@ describe('doStuffByInterval', () => {
     const interval = 1000;
     doStuffByInterval(callback, interval);
     jest.advanceTimersByTime(interval * 2);
-    expect(callback).toHaveBeenCalledTimes(2);});
+    expect(callback).toHaveBeenCalledTimes(2);
+  });
 });
 
 describe('readFileAsynchronously', () => {
