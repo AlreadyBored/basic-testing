@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 export enum Action {
   Add = '+',
   Subtract = '-',
