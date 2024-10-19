@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 export const resolveValue = async (value: unknown) => {
   return value;
 };
