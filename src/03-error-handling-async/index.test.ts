@@ -34,6 +34,5 @@ describe('rejectCustomError', () => {
     // Write your test here
 
     await expect(rejectCustomError()).rejects.toThrow(MyAwesomeError);
-    // await expect(() => ).toThrow(MyAwesomeError);
   });
 });
