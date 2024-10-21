@@ -24,7 +24,9 @@ describe('resolveValue', () => {
 describe('throwError', () => {
   test('should throw error with provided message', () => {
     // Write your test here
-    expect(() => {throwError('random')}).toThrow('random');
+    expect(() => {
+      throwError('random');
+    }).toThrow('random');
   });
 
   test('should throw error with default message if message is not provided', () => {

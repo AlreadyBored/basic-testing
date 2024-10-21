@@ -28,12 +28,12 @@ describe('throttledGetDataFromApi', () => {
 
   test('should perform request to correct provided url', async () => {
     const axiosInstance = {
-      get: jest.fn().mockResolvedValue({ data: 'content' }), 
+      get: jest.fn().mockResolvedValue({ data: 'content' }),
     } as unknown as jest.Mocked<typeof axios>;
-    mockedAxios.create.mockReturnValue(axiosInstance); 
+    mockedAxios.create.mockReturnValue(axiosInstance);
     const promise = throttledGetDataFromApi('123');
-    jest.advanceTimersByTime(5000); 
-    await promise; 
+    jest.advanceTimersByTime(5000);
+    await promise;
     expect(axiosInstance.get).toHaveBeenCalledWith('123');
   });
 

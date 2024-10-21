@@ -12,17 +12,21 @@ describe('simpleCalculator tests', () => {
     });
     const result = simpleCalculator({
       a: 100000021,
-      b: 73812318299378172,
+      b: 299378172,
       action: Action.Add,
     });
     expect(simpleResult).toEqual(2 + 1);
     expect(invalidInputResult).toEqual(null);
-    expect(result).toEqual(100000021 + 73812318299378172);
+    expect(result).toEqual(100000021 + 299378172);
   });
 
   test('should subtract two numbers', () => {
     // Write your test here
-    const simpleResult = simpleCalculator({ a: 1, b: 2, action: Action.Subtract });
+    const simpleResult = simpleCalculator({
+      a: 1,
+      b: 2,
+      action: Action.Subtract,
+    });
     const invalidInputResult = simpleCalculator({
       a: 'str',
       b: 2,
@@ -30,17 +34,21 @@ describe('simpleCalculator tests', () => {
     });
     const result = simpleCalculator({
       a: 100000021,
-      b: 73812318299378172,
+      b: 299378172,
       action: Action.Subtract,
     });
     expect(simpleResult).toEqual(1 - 2);
     expect(invalidInputResult).toEqual(null);
-    expect(result).toEqual(100000021 - 73812318299378172);
+    expect(result).toEqual(100000021 - 299378172);
   });
 
   test('should multiply two numbers', () => {
     // Write your test here
-    const simpleResult = simpleCalculator({ a: 1, b: 2, action: Action.Multiply });
+    const simpleResult = simpleCalculator({
+      a: 1,
+      b: 2,
+      action: Action.Multiply,
+    });
     const invalidInputResult = simpleCalculator({
       a: 'str',
       b: 2,
@@ -48,17 +56,21 @@ describe('simpleCalculator tests', () => {
     });
     const result = simpleCalculator({
       a: 100000021,
-      b: 73812318299378172,
+      b: 299378172,
       action: Action.Multiply,
     });
     expect(simpleResult).toEqual(1 * 2);
     expect(invalidInputResult).toEqual(null);
-    expect(result).toEqual(100000021 * 73812318299378172);
+    expect(result).toEqual(100000021 * 299378172);
   });
 
   test('should divide two numbers', () => {
     // Write your test here
-    const simpleResult = simpleCalculator({ a: 1, b: 2, action: Action.Divide });
+    const simpleResult = simpleCalculator({
+      a: 1,
+      b: 2,
+      action: Action.Divide,
+    });
     const invalidInputResult = simpleCalculator({
       a: 'str',
       b: 2,
@@ -66,17 +78,21 @@ describe('simpleCalculator tests', () => {
     });
     const result = simpleCalculator({
       a: 100000021,
-      b: 73812318299378172,
+      b: 299378172,
       action: Action.Divide,
     });
-    expect(simpleResult).toEqual(1  / 2);
+    expect(simpleResult).toEqual(1 / 2);
     expect(invalidInputResult).toEqual(null);
-    expect(result).toEqual(100000021 / 73812318299378172);
+    expect(result).toEqual(100000021 / 299378172);
   });
 
   test('should exponentiate two numbers', () => {
     // Write your test here
-    const simpleResult = simpleCalculator({ a: 1, b: 2, action: Action.Exponentiate });
+    const simpleResult = simpleCalculator({
+      a: 1,
+      b: 2,
+      action: Action.Exponentiate,
+    });
     const invalidInputResult = simpleCalculator({
       a: 'str',
       b: 2,
@@ -84,19 +100,19 @@ describe('simpleCalculator tests', () => {
     });
     const result = simpleCalculator({
       a: 100000021,
-      b: 73812318299378172,
+      b: 299378172,
       action: Action.Exponentiate,
     });
     expect(simpleResult).toEqual(1 ** 2);
     expect(invalidInputResult).toEqual(null);
-    expect(result).toEqual(100000021 ** 73812318299378172);
+    expect(result).toEqual(100000021 ** 299378172);
   });
 
   test('should return null for invalid action', () => {
     const invalidInputResult = simpleCalculator({
       a: 1,
       b: 0,
-      action: "+-",
+      action: '+-',
     });
     expect(invalidInputResult).toEqual(null);
   });
@@ -110,7 +126,7 @@ describe('simpleCalculator tests', () => {
     });
     const invalidSecondArgInputResult = simpleCalculator({
       a: 123,
-      b: "123",
+      b: '123',
       action: Action.Exponentiate,
     });
     const invalidBothArgsInputResult = simpleCalculator({
