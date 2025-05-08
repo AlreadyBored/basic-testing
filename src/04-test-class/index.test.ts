@@ -34,7 +34,7 @@ describe('BankAccount', () => {
     // Write your tests here
   });
 
-  test('should set new balance if fetchBalance returned number', async () => {
+  test('synchronizeBalance should set new balance if fetchBalance returned number', async () => {
     // Write your tests here
   });
 
