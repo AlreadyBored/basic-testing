@@ -38,7 +38,7 @@ describe('BankAccount', () => {
     // Write your tests here
   });
 
-  test('should throw SynchronizationFailedError if fetchBalance returned null', async () => {
+  test('synchronizeBalance should throw SynchronizationFailedError if fetchBalance returned null', async () => {
     // Write your tests here
   });
 });
