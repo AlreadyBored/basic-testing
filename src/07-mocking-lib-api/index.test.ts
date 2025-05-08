@@ -16,6 +16,8 @@ describe('throttledGetDataFromApi', () => {
       get: mockGet,
       defaults: { baseURL: '' },
     } as unknown as AxiosInstance);
+
+    mockGet.mockResolvedValue({ data: {} });
   });
 
   test('should create instance with provided base url', async () => {
