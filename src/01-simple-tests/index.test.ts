@@ -9,7 +9,9 @@ describe('simpleCalculator tests', () => {
 
   test('should subtract two numbers', () => {
     expect(simpleCalculator({ a: 5, b: 3, action: Action.Subtract })).toBe(2);
-    expect(simpleCalculator({ a: 10, b: 15, action: Action.Subtract })).toBe(-5);
+    expect(simpleCalculator({ a: 10, b: 15, action: Action.Subtract })).toBe(
+      -5,
+    );
     expect(simpleCalculator({ a: -2, b: -3, action: Action.Subtract })).toBe(1);
   });
 
@@ -26,9 +28,15 @@ describe('simpleCalculator tests', () => {
   });
 
   test('should exponentiate two numbers', () => {
-    expect(simpleCalculator({ a: 2, b: 3, action: Action.Exponentiate })).toBe(8);
-    expect(simpleCalculator({ a: 3, b: 2, action: Action.Exponentiate })).toBe(9);
-    expect(simpleCalculator({ a: -2, b: 3, action: Action.Exponentiate })).toBe(-8);
+    expect(simpleCalculator({ a: 2, b: 3, action: Action.Exponentiate })).toBe(
+      8,
+    );
+    expect(simpleCalculator({ a: 3, b: 2, action: Action.Exponentiate })).toBe(
+      9,
+    );
+    expect(simpleCalculator({ a: -2, b: 3, action: Action.Exponentiate })).toBe(
+      -8,
+    );
   });
 
   test('should return null for invalid action', () => {
@@ -39,7 +47,11 @@ describe('simpleCalculator tests', () => {
 
   test('should return null for invalid arguments', () => {
     expect(simpleCalculator({ a: '5', b: 3, action: Action.Add })).toBe(null);
-    expect(simpleCalculator({ a: 5, b: null, action: Action.Subtract })).toBe(null);
-    expect(simpleCalculator({ a: undefined, b: 2, action: Action.Multiply })).toBe(null);
+    expect(simpleCalculator({ a: 5, b: null, action: Action.Subtract })).toBe(
+      null,
+    );
+    expect(
+      simpleCalculator({ a: undefined, b: 2, action: Action.Multiply }),
+    ).toBe(null);
   });
-})
+});

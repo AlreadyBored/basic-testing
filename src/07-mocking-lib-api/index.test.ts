@@ -12,7 +12,9 @@ const BASE_URL = 'https://jsonplaceholder.typicode.com';
 
 describe('throttledGetDataFromApi', () => {
   test('should create instance with provided base url', async () => {
-    const mockAxiosInstance = { get: jest.fn().mockResolvedValue({ data: 'fakeData' }) };
+    const mockAxiosInstance = {
+      get: jest.fn().mockResolvedValue({ data: 'fakeData' }),
+    };
     (axios.create as jest.Mock).mockReturnValue(mockAxiosInstance);
 
     await throttledGetDataFromApi(PATH);
@@ -22,7 +24,9 @@ describe('throttledGetDataFromApi', () => {
   });
 
   test('should perform request to correct provided url', async () => {
-    const mockAxiosInstance = { get: jest.fn().mockResolvedValue({ data: 'fakeData' }) };
+    const mockAxiosInstance = {
+      get: jest.fn().mockResolvedValue({ data: 'fakeData' }),
+    };
     (axios.create as jest.Mock).mockReturnValue(mockAxiosInstance);
 
     await throttledGetDataFromApi('/users/1');
@@ -34,7 +38,9 @@ describe('throttledGetDataFromApi', () => {
 
   test('should return response data', async () => {
     const mockResponseData1 = { data: 'fakeData' };
-    const mockAxiosInstance = { get: jest.fn().mockResolvedValue({ data: mockResponseData1 }) };
+    const mockAxiosInstance = {
+      get: jest.fn().mockResolvedValue({ data: mockResponseData1 }),
+    };
     (axios.create as jest.Mock).mockReturnValue(mockAxiosInstance);
 
     const result = await throttledGetDataFromApi('/users');
