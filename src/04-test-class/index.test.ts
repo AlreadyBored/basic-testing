@@ -9,7 +9,7 @@ import lodash from 'lodash';
 
 const initialBalance = 100;
 const exceededAmount = 200;
-const mockedFetchedBalance = 50;
+const mockFetchedBalance = 50;
 const InsufficientFundsErrorMessage = `Insufficient funds: cannot withdraw more than ${initialBalance}`;
 
 describe('BankAccount', () => {
@@ -99,11 +99,11 @@ describe('BankAccount', () => {
   });
 
   test('fetchBalance should return number in case if request did not failed', async () => {
-    jest.spyOn(lodash, 'random').mockImplementation(() => mockedFetchedBalance);
+    jest.spyOn(lodash, 'random').mockReturnValue(mockFetchedBalance);
 
     const fetchedBalance = await getBankAccount(initialBalance).fetchBalance();
 
-    expect(fetchedBalance).toBe(mockedFetchedBalance);
+    expect(fetchedBalance).toBe(mockFetchedBalance);
   });
 
   test('should set new balance if fetchBalance returned number', async () => {
@@ -111,20 +111,18 @@ describe('BankAccount', () => {
 
     jest
       .spyOn(bankAccount, 'fetchBalance')
-      .mockImplementation(async () => mockedFetchedBalance);
+      .mockResolvedValue(mockFetchedBalance);
 
     await bankAccount.synchronizeBalance();
     const synchronizedBalance = bankAccount.getBalance();
 
-    expect(synchronizedBalance).toBe(mockedFetchedBalance);
+    expect(synchronizedBalance).toBe(mockFetchedBalance);
   });
 
   test('should throw SynchronizationFailedError if fetchBalance returned null', async () => {
     const bankAccount = getBankAccount(initialBalance);
 
-    jest
-      .spyOn(bankAccount, 'fetchBalance')
-      .mockImplementation(async () => null);
+    jest.spyOn(bankAccount, 'fetchBalance').mockResolvedValue(null);
 
     await expect(bankAccount.synchronizeBalance()).rejects.toThrow(
       SynchronizationFailedError,

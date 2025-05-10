@@ -34,6 +34,7 @@ describe('partial mocking', () => {
 
     unmockedFunction();
 
+    expect(console.log).toHaveBeenCalledTimes(1);
     expect(console.log).toHaveBeenCalledWith('I am not mocked');
   });
 });
