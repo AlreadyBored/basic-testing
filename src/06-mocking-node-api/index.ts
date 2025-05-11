@@ -1,6 +1,6 @@
-import { existsSync } from 'fs';
-import { readFile } from 'fs/promises';
-import { join } from 'path';
+import { existsSync } from "fs";
+import { readFile } from "fs/promises";
+import { join } from "path";
 
 export const readFileAsynchronously = async (pathToFile: string) => {
   const fullPath = join(__dirname, pathToFile);

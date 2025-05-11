@@ -3,7 +3,7 @@ export const resolveValue = async (value: unknown) => {
 };
 
 export const throwError = (msg?: string) => {
-  throw new Error(msg ?? 'Oops!');
+  throw new Error(msg ?? "Oops!");
 };
 
 export const throwCustomError = () => {
@@ -16,6 +16,6 @@ export const rejectCustomError = async () => {
 
 export class MyAwesomeError extends Error {
   constructor() {
-    super('This is my awesome custom error!');
+    super("This is my awesome custom error!");
   }
 }

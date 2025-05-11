@@ -1,4 +1,4 @@
-import { random } from 'lodash';
+import { random } from "lodash";
 
 export class BankAccount {
   private _balance: number;
@@ -61,13 +61,13 @@ export const getBankAccount = (initialBalance: number): BankAccount => {
 
 export class TransferFailedError extends Error {
   constructor() {
-    super('Transfer failed');
+    super("Transfer failed");
   }
 }
 
 export class SynchronizationFailedError extends Error {
   constructor() {
-    super('Synchronization failed');
+    super("Synchronization failed");
   }
 }
 

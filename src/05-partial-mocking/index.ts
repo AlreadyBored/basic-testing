@@ -1,15 +1,15 @@
 export const mockOne = () => {
-  console.log('foo');
+  console.log("foo");
 };
 
 export const mockTwo = () => {
-  console.log('bar');
+  console.log("bar");
 };
 
 export const mockThree = () => {
-  console.log('baz');
+  console.log("baz");
 };
 
 export const unmockedFunction = () => {
-  console.log('I am not mocked');
+  console.log("I am not mocked");
 };
