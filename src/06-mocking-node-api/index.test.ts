@@ -102,9 +102,9 @@ describe('readFileAsynchronously', () => {
     const mockFullPath = '/mocked/path/test.txt';
     (join as jest.Mock).mockReturnValue(mockFullPath);
     (existsSync as jest.Mock).mockReturnValue(false);
-    
+
     await readFileAsynchronously(mockPath);
-    
+
     expect(join).toHaveBeenCalledWith(expect.any(String), mockPath);
   });
 
@@ -113,9 +113,9 @@ describe('readFileAsynchronously', () => {
     const mockFullPath = '/mocked/path/non-existent.txt';
     (join as jest.Mock).mockReturnValue(mockFullPath);
     (existsSync as jest.Mock).mockReturnValue(false);
-    
+
     const result = await readFileAsynchronously(mockPath);
-    
+
     expect(existsSync).toHaveBeenCalledWith(mockFullPath);
     expect(readFile).not.toHaveBeenCalled();
     expect(result).toBeNull();
@@ -125,13 +125,13 @@ describe('readFileAsynchronously', () => {
     const mockPath = 'existing.txt';
     const mockFullPath = '/mocked/path/existing.txt';
     const mockContent = Buffer.from('File content here');
-    
+
     (join as jest.Mock).mockReturnValue(mockFullPath);
     (existsSync as jest.Mock).mockReturnValue(true);
     (readFile as jest.Mock).mockResolvedValue(mockContent);
-    
+
     const result = await readFileAsynchronously(mockPath);
-    
+
     expect(existsSync).toHaveBeenCalledWith(mockFullPath);
     expect(readFile).toHaveBeenCalledWith(mockFullPath);
     expect(result).toBe('File content here');
