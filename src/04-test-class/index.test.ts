@@ -5,6 +5,7 @@ import {
   getBankAccount,
   InsufficientFundsError,
   SynchronizationFailedError,
+  TransferFailedError,
 } from '04-test-class';
 
 describe('BankAccount', () => {
@@ -32,7 +33,7 @@ describe('BankAccount', () => {
 
   test('should throw error when transferring to the same account', () => {
     const account = getBankAccount(100);
-    expect(() => account.transfer(10, account)).toThrow(InsufficientFundsError);
+    expect(() => account.transfer(10, account)).toThrow(TransferFailedError);
     expect(() => account.transfer(10, account)).toThrow('Transfer failed');
   });
 
