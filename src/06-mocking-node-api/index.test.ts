@@ -1,8 +1,8 @@
 // Uncomment the code below and write your tests
-import { join } from 'path';
+import { join as joinOriginal } from 'path';
 import { readFileAsynchronously, doStuffByTimeout, doStuffByInterval } from '.';
-import { existsSync } from 'fs';
-import { readFile } from 'fs/promises';
+import { existsSync as existsSyncOriginal } from 'fs';
+import { readFile as readFileOriginal } from 'fs/promises';
 
 jest.mock('fs', () => ({
   ...jest.requireActual<typeof import('fs')>('fs'),
@@ -21,9 +21,13 @@ jest.mock('path', () => ({
 
 const mockCallback = jest.fn();
 
-const mockJoin = join as jest.MockedFunction<typeof join>;
-const mockExistsSync = existsSync as jest.MockedFunction<typeof existsSync>;
-const mockReadFile = readFile as jest.MockedFunction<typeof readFile>;
+const join = joinOriginal as jest.MockedFunction<typeof joinOriginal>;
+const existsSync = existsSyncOriginal as jest.MockedFunction<
+  typeof existsSyncOriginal
+>;
+const readFile = readFileOriginal as jest.MockedFunction<
+  typeof readFileOriginal
+>;
 
 const testPathToFile = 'test-path-to-file';
 
@@ -103,13 +107,13 @@ describe('readFileAsynchronously', () => {
   test('should call join with pathToFile', async () => {
     await readFileAsynchronously(testPathToFile);
 
-    const pathToFileArg = mockJoin.mock.calls[0]?.[1];
+    const pathToFileArg = join.mock.calls[0]?.[1];
 
     expect(pathToFileArg).toBe(testPathToFile);
   });
 
   test('should return null if file does not exist', async () => {
-    mockExistsSync.mockReturnValue(false);
+    existsSync.mockReturnValue(false);
 
     await expect(readFileAsynchronously(testPathToFile)).resolves.toBe(null);
   });
@@ -117,8 +121,8 @@ describe('readFileAsynchronously', () => {
   test('should return file content if file exists', async () => {
     const testContent = 'test-content';
 
-    mockExistsSync.mockReturnValue(true);
-    mockReadFile.mockResolvedValue(Buffer.from('test-content'));
+    existsSync.mockReturnValue(true);
+    readFile.mockResolvedValue(Buffer.from('test-content'));
 
     await expect(readFileAsynchronously(testPathToFile)).resolves.toBe(
       testContent,
