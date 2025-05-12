@@ -1,14 +1,33 @@
 // Uncomment the code below and write your tests
-// import { generateLinkedList } from './index';
+import { generateLinkedList } from './index';
 
 describe('generateLinkedList', () => {
-  // Check match by expect(...).toStrictEqual(...)
+  // Регулярное сравнение
   test('should generate linked list from values 1', () => {
-    // Write your test here
+    const input = [1, 2, 3];
+    const expectedOutput = {
+      value: 1,
+      next: {
+        value: 2,
+        next: {
+          value: 3,
+          next: {
+            value: null, // Дополнительный узел с null в конце
+            next: null,
+          },
+        },
+      },
+    };
+
+    expect(generateLinkedList(input)).toStrictEqual(expectedOutput);
   });
 
-  // Check match by comparison with snapshot
+  // Тест с использованием снимка
   test('should generate linked list from values 2', () => {
-    // Write your test here
+    const input = [1, 2, 3];
+    const linkedList = generateLinkedList(input);
+
+    // Создание и сравнение снимка
+    expect(linkedList).toMatchSnapshot();
   });
 });

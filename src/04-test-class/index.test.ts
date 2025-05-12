@@ -3,7 +3,6 @@ import {
   getBankAccount,
   InsufficientFundsError,
   SynchronizationFailedError,
-  // SynchronizationFailedError,
 } from '.';
 
 describe('BankAccount', () => {
