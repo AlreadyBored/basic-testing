@@ -1,4 +1,5 @@
 import { random } from 'lodash';
+import { log } from 'node:console';
 
 export class BankAccount {
   private _balance: number;
@@ -42,6 +43,8 @@ export class BankAccount {
 
     const requestFailed = random(0, 1, false) === 0;
 
+    log('requestFailed', requestFailed)
+
     return requestFailed ? null : balance;
   }
 
@@ -50,6 +53,8 @@ export class BankAccount {
     if (balance === null) {
       throw new SynchronizationFailedError();
     }
+
+    log('balance', balance);
 
     this._balance = balance;
   }
