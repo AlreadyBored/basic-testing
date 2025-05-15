@@ -1,4 +1,11 @@
+import fs from 'node:fs';
+import fsPromises from 'node:fs/promises';
+import path from 'node:path';
 import { doStuffByInterval, doStuffByTimeout, readFileAsynchronously } from '.';
+
+const fileName = 'test.txt';
+jest.mock('fs');
+jest.mock('fs/promises');
 
 describe('doStuffByTimeout', () => {
   beforeAll(() => {
@@ -62,37 +69,38 @@ describe('doStuffByInterval', () => {
 
     doStuffByInterval(callback, interval);
 
-    expect(setInterval).toHaveBeenCalled();
+    expect(callback).toHaveBeenCalled();
 
     jest.advanceTimersByTime(interval);
-    expect(setInterval).toHaveBeenCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
 
     jest.advanceTimersByTime(interval);
-    expect(setInterval).toHaveBeenCalledTimes(2);
-
-    // jest.advanceTimersByTime(interval);
-    // expect(setInterval).toHaveBeenCalledTimes(3);
+    expect(callback).toHaveBeenCalledTimes(2);
   });
 });
 
 describe('readFileAsynchronously', () => {
   test('should call join with pathToFile', async () => {
-    const mockJoin = jest.fn().mockReturnValue('/mocked/path');
-    jest.mock('path', () => ({
-      join: mockJoin,
-    }));
+    const spy = jest.spyOn(path, 'join');
 
-    const pathToFile = 'some/path/to/file.txt';
-    await readFileAsynchronously(pathToFile);
+    await readFileAsynchronously(fileName);
 
-    expect(mockJoin).toHaveBeenCalledWith(pathToFile);
+    expect(spy).toHaveBeenCalledWith(__dirname, fileName);
   });
 
   test('should return null if file does not exist', async () => {
-    // Write your test here
+    jest.spyOn(fs, 'existsSync').mockReturnValue(false);
+    const fileContent = await readFileAsynchronously(fileName);
+
+    expect(fileContent).toBeNull();
   });
 
   test('should return file content if file exists', async () => {
-    // Write your test here
+    const content = 'content';
+    jest.spyOn(fs, 'existsSync').mockReturnValue(true);
+    jest.spyOn(fsPromises, 'readFile').mockResolvedValue(content);
+
+    const fileContent = await readFileAsynchronously(fileName);
+    expect(fileContent).toBe(content);
   });
 });
