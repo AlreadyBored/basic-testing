@@ -1,107 +1,95 @@
-# Basic testing
+# 🧪 Basic Testing Assignment
 
-⚠️ DO NOT SUBMIT PULL REQUESTS TO THIS REPO ⚠️
-
----
-
-### Prerequisites
-1. Install [Node.js](https://nodejs.org/en/download/)   
-2. Fork this repository: https://github.com/AlreadyBored/basic-testing
-3. Clone your newly created repo locally: https://github.com/<%your_github_username%>/basic-testing/  
-4. Go to folder `basic-testing`  
-5. To install all dependencies use [`npm install`](https://docs.npmjs.com/cli/install)  
-6. Run **test scripts** in command line.
-7. You will see the number of skipped, passing and failing tests.
+This repository contains solutions for the [RS School Basic Testing](https://github.com/AlreadyBored/basic-testing) assignment. The goal is to write unit tests using **Jest** for various JavaScript/TypeScript modules that demonstrate different testing techniques.
 
 ---
 
-### Test scripts
+## 📦 Tech Stack
+
+- TypeScript  
+- Jest  
+- Node.js (v24+ recommended)
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
 
 ```bash
-# run unit tests
-$ npm run test
+git clone https://github.com/toby-28/basic-testing.git
+cd basic-testing
+```
 
-# with logging
-$ npm run test:verbose
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Run tests
+
+```bash
+npm run test
+```
+
+For verbose output:
+
+```bash
+npm run test:verbose
 ```
 
 ---
 
-#### Notes
-1. We recommend you to use Node.js of version 24.x.x (24.10.0 or upper) LTS. If you use any of features, that does not supported by Node.js 24, there may be problems with task submit.
-2. Please, be sure that each of your tests is limited to 30 sec.
-3. Please, be sure you don't have any linter/TS compiler errors.
+## 📁 Project Structure
+
+```
+basic-testing/
+├── src/
+│   ├── 01-simple-tests/
+│   ├── 02-table-tests/
+│   ├── 03-error-handling-async/
+│   ├── 04-test-class/
+│   ├── 05-partial-mocking/
+│   ├── 06-mocking-node-api/
+│   ├── 07-mocking-lib-api/
+│   └── 08-snapshot-testing/
+├── package.json
+├── tsconfig.json
+└── README.md
+```
+
+Each folder contains:
+- `index.ts` → source code to be tested  
+- `index.test.ts` → your test implementation
 
 ---
 
-## General task description
-Your task is to write unit tests for code, provided in file `index.ts`. 
+## ✅ Assignment Requirements
+
+- Write tests for each section using Jest  
+- Avoid TypeScript or linter errors  
+- Each test must complete within **30 seconds**  
+- Do not modify original source files  
+- Do not submit PRs to this repo — it's for local development only
 
 ---
 
-### **Simple tests**
+## 🧠 Topics Covered
 
-Write unit tests for the `simpleCalculator` function, which performs basic mathematical operations - addition, subtraction, division, multiplication, and exponentiation. Your task is to verify that the operations are executed correctly and that the function returns `null` for invalid input.
-
-Write your tests in `src/01-simple-tests/index.test.ts`.
-
----
-
-### **Table tests**
-
-Your task is to rewrite the tests written in the previous task using the table-driven testing approach, utilizing the appropriate Jest API.
-
-Write your tests in `src/02-table-tests/index.test.ts`.
-
----
-
-
-### **Error handling & async**
-
-Your task is to test functions that work asynchronously/throw/reject exceptions..
-
-Write your tests in `src/03-error-handling-async/index.test.ts`.
+| Section | Focus |
+|--------|-------|
+| 01 | Basic assertions and input validation |
+| 02 | Table-driven tests |
+| 03 | Error handling and async functions |
+| 04 | Testing classes and internal logic |
+| 05 | Partial mocking with Jest |
+| 06 | Mocking Node.js APIs (`fs`, timers) |
+| 07 | Mocking external libraries (`axios`, `lodash`) |
+| 08 | Snapshot testing |
 
 ---
 
-### **Testing class**
+## 📜 License
 
-Your task is to test a class representing a bank account that implements corresponding operations. Please note that some methods of the class invoke others, some operations result in errors, and the implementation is asynchronous and involves the native JS API. These aspects should be taken into account when writing the tests.
-
-Write your tests in `src/04-test-class/index.test.ts`.
-
----
-
-### **Partial mocking**
-
-Your task is to utilize the Jest API to partially mock the contents of a module.
-
-Write your tests in `src/05-partial-mocking/index.test.ts`.
-
----
-
-### **Mocking Node.js API**
-
-Your task is to test the proper usage of the Node.js API based on commonly used APIs such as the `fs` module, as well as `setTimeout` and `setInterval`. Remember that the tests should not interact with the actual file system and should not rely on real-time!
-
-Write your tests in `src/06-mocking-node-api/index.test.ts`.
-
----
-
-### **Mocking library API**
-
-Your task is to test that function that utilize library APIs is working correctly (with commonly used libraries such as `axios` and `lodash` as examples).
-
-Write your tests in `src/07-mocking-lib-api/index.test.ts`.
-
----
-
-### **Snapshot testing**
-
-Your task is to use snapshot testing with Jest and compare it to regular comparison testing.
-
-Write your tests in `src/08-snapshot-testing/index.test.ts`.
-
----
-
-© [AlreadyBored](https://github.com/AlreadyBored)
+This project is for educational use under RS School guidelines.
