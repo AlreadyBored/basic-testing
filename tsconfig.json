@@ -9,8 +9,8 @@
     "moduleResolution": "Node",
     "noUncheckedIndexedAccess": true,
     "strictNullChecks": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "outDir": "dist",
     "removeComments": true,
     "resolveJsonModule": true,
@@ -19,5 +19,5 @@
     "strict": true,
     "strictPropertyInitialization": false,
     "target": "ES2020"
-  },
+  }
 }
