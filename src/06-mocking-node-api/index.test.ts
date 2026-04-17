@@ -1,18 +1,5 @@
 import { doStuffByTimeout, doStuffByInterval } from '.';
 
-var mockedJoin = jest.fn(() => '/mocked/path/to/file');
-var mockedExistsSync = jest.fn(() => false);
-
-jest.mock('path', () => ({
-  ...jest.requireActual('path'),
-  join: mockedJoin,
-}));
-
-jest.mock('fs', () => ({
-  ...jest.requireActual('fs'),
-  existsSync: mockedExistsSync,
-}));
-
 describe('doStuffByTimeout', () => {
   beforeAll(() => {
     jest.useFakeTimers();
@@ -84,14 +71,71 @@ describe('doStuffByInterval', () => {
 });
 
 describe('readFileAsynchronously', () => {
+  beforeEach(() => {
+    jest.resetModules();
+  });
+
   test('should call join with pathToFile', async () => {
+    const mockedJoin = jest.fn(() => '/system/dir/user');
+    const file = 'file.txt';
+
+    jest.doMock('path', () => ({
+      ...jest.requireActual('path'),
+      join: mockedJoin,
+    }));
+
+    jest.doMock('fs', () => ({
+      ...jest.requireActual('fs'),
+      existsSync: jest.fn(() => false),
+    }));
+
+    const { readFileAsynchronously } = require('.');
+
+    await readFileAsynchronously(file);
+    expect(mockedJoin).toHaveBeenCalledWith(__dirname, file);
   });
 
   test('should return null if file does not exist', async () => {
-    // Write your test here
+    const file = 'file.txt';
+
+    jest.doMock('path', () => ({
+      ...jest.requireActual('path'),
+      join: jest.fn(() => '/system/dir/user'),
+    }));
+
+    jest.doMock('fs', () => ({
+      ...jest.requireActual('fs'),
+      existsSync: jest.fn(() => false),
+    }));
+
+    const { readFileAsynchronously } = require('.');
+
+    const result = await readFileAsynchronously(file);
+    expect(result).toBeNull();
   });
 
   test('should return file content if file exists', async () => {
-    // Write your test here
+    const file = 'file.txt';
+    const fileReadResult = 'file contents';
+
+    jest.doMock('path', () => ({
+      ...jest.requireActual('path'),
+      join: jest.fn(() => '/system/dir/user'),
+    }));
+
+    jest.doMock('fs', () => ({
+      ...jest.requireActual('fs'),
+      existsSync: jest.fn(() => true),
+    }));
+
+    jest.doMock('fs/promises', () => ({
+      ...jest.requireActual('fs/promises'),
+      readFile: jest.fn(() => Promise.resolve(fileReadResult)),
+    }));
+
+    const { readFileAsynchronously } = require('.');
+
+    const result = await readFileAsynchronously(file);
+    expect(result).toBe(fileReadResult);
   });
 });
