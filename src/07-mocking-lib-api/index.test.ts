@@ -5,7 +5,7 @@ jest.mock('axios');
 
 jest.mock('lodash', () => ({
   ...jest.requireActual('lodash'),
-  throttle: (fn: any) => fn,
+  throttle: (fn: unknown) => fn as typeof fn,
 }));
 
 describe('throttledGetDataFromApi', () => {
@@ -38,7 +38,7 @@ describe('throttledGetDataFromApi', () => {
   });
 
   test('should return response data', async () => {
-    const data = 'user data'
+    const data = 'user data';
 
     mockGet.mockResolvedValueOnce({ data });
     const result = await throttledGetDataFromApi('/user/1');
