@@ -1,11 +1,7 @@
 import path from 'path';
 import { existsSync } from 'fs';
 import { readFile } from 'fs/promises';
-import {
-  readFileAsynchronously,
-  doStuffByTimeout,
-  doStuffByInterval,
-} from '.';
+import { readFileAsynchronously, doStuffByTimeout, doStuffByInterval } from '.';
 
 jest.mock('fs');
 jest.mock('fs/promises');
